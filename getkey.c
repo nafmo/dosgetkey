@@ -37,13 +37,14 @@ typedef struct
     char            listsep[2], reserved[10];
 } nls_t;
 
-/* Date formats */
+/* NLS date formats */
 const char *dateformat[] = {
     "%m%%c%d%%c%Y %H%%c%M%%c%S ",
     "%d%%c%m%%c%Y %H%%c%M%%c%S ",
-    "%Y%%c%m%%c%d %H%%c%M%%c%S ",
-    "%a %d %b %Y %H%%c%M%%c%S "
+    "%Y%%c%m%%c%d %H%%c%M%%c%S "
 };
+
+const char *longdateformat = "%a %d %b %Y %H%%c%M%%c%S ";
 
 /* Beep at 1KHz for 0.2 seconds */
 int emitbeep(void)
@@ -79,12 +80,12 @@ void printdate(time_t now, BOOL longdate)
     tm_p = localtime(&now);
     if (longdate)
     {
-        strftime(format, sizeof(format), dateformat[3], tm_p);
+        strftime(format, sizeof(format), longdateformat, tm_p);
         cprintf(format, nls.timesep[0], nls.timesep[0]);
     }
     else
     {
-        strftime(format, sizeof(format), dateformat[longdate], tm_p);
+        strftime(format, sizeof(format), dateformat[nls.dateformat], tm_p);
         cprintf(format, nls.datesep[0], nls.datesep[0],
                         nls.timesep[0], nls.timesep[0]);
     }
@@ -173,7 +174,11 @@ int main(int argc, char *argv[])
         {
             int seconds;
 
-            sscanf(argv[i], "%d", &seconds);
+            if (sscanf(argv[i], "%d", &seconds) != 1)
+            {
+                cprintf("Illegal time specification: %s", argv[i]);
+                return 15;
+            }
             timeout = time(NULL) + seconds;
         }
         else
@@ -187,6 +192,7 @@ int main(int argc, char *argv[])
             if (-1 == found)
             {
                 cprintf("Illegal key name: %s\r\n", argv[i]);
+                return 15;
             }
             else
             {
