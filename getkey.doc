@@ -1,0 +1,95 @@
+GetKey - A simple program that waits for a key
+A Softwolves Software Release in 2000
+
+http://www.softwolves.pp.se/wolves/
+
+
+LICENSE
+
+This public is released to the public domain. That means that you can do
+anything you want with it. But if you do change the program, I would very much
+like to hear from you.
+
+This documentation file is copyrighted, however; if you change this document,
+you have to retain the last three lines containing my name and address.
+(However, there is nothing stopping you from writing a new documentation and
+dropping this, other than that it would be unkind).
+
+
+USEAGE
+
+GetKey waits for a key, and lets you know which it got. It can also show a
+prompt and/or the current time while doing this.
+
+GetKey knows the keys F1-F12, Escape and Enter, and will return the numbers 0
+(Escape), 1-12 (F1-F12), 13 (Enter) or 14 (waited too long), depending on what
+happens. If you do not wish to handle certain keys, they can be disabled.
+
+GetKey understand these command line parameters, which may be entered in any
+order on the command line, and which may be combined (i.e /VB is the same
+thing as /V /B).
+
+/B makes GetKey beep if you press a key that it does not understand. By
+   default, GetKey does not make any sounds.
+
+/C will center the cursor on the screen. Currently requires that the screen is
+   80 characters wide, though. By default, the prompt will be flushed left.
+
+/D will display the date and time before the prompt. It will use the local
+   date format, as selected in the COUNTRY statement in CONFIG.SYS (however,
+   see also /L below). By default, no date will be shown.
+
+/L will, if used in conjunction with /D, display the date in a verbose format,
+   containing the weekday and month names.
+
+/P will display a prompt (can be used together with /D). The prompt text
+   should follow directly after the P. If the prompt text contains spaces, the
+   whole thing needs to be quoted, i.e: "/PGreetings, Dr. Falken". By default,
+   no prompt will be shown.
+
+/V will make GetKey print the name of the key pressed (or timeout, if the
+   timeout passes) when exiting. By default, GetKey will not print anything on
+   exit.
+
+A numeric value, which will be interpreted as the number of seconds to wait
+before returning the timeout value. The default is 30 seconds.
+
+A key name ("Escape", "F1"-"F12" or "Enter"), which specifies that this key
+should be ignored, and not result in exiting the program. By default, all the
+keys described are enabled. If a disabled key is pressed and /B is enabled,
+GetKey will beep as if an illegal key was pressed.
+
+Sample command line:
+  GETKEY "/BCDLVPWhat do you want to crash today?" Enter
+enables exactly everything that you can enable, but disable the Enter key.
+
+
+HISTORY
+
+2000-  -   - v1.0 - First public version
+
+This program was written for Don Alt. If you think that it sucks, he's the one
+to blame, since he wrote the specs :-) But, if you think that it sucks, you
+should really change it. Use the Source, Luke!
+
+
+INCLUDED FILES
+
+getkey.c   - Source code
+getkey.exe - DOS binary
+getkey.doc - You're reading it
+
+
+REQUIREMENTS FOR COMPILATION
+
+This program was written using Borland Turbo C++ 1.0 for DOS. You'll most
+probably need to use a Borland Turbo C derivative to compile it, or you'll
+have to port it. Sorry for that. If it had been more compiler-general and so,
+I'd probably would had released it under copyright, anyway.
+
+
+CONTACT
+
+The author, Peter Karlsson, can be contacted via netmail at 2:210/45.0, or via
+Internet e-mail at peter@softwolves.pp.se. Information about this program is
+available on the world wide web at http://www.softwolves.pp.se/wolves/
